@@ -1,35 +1,38 @@
 package com.big5.back.entity;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
 @Table(name = "users")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idx;
+    private Long id;
 
-    @Column(unique = true)
-    private String email;
-
-    @Column(length = 100)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "picture_url", columnDefinition = "TEXT")
-    private String pictureUrl;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    @Column(length = 10)
-    private String provider;
+    private String picture;
 
-    @Column(name = "privider_id")
-    private String providerId;
+    private String provider; // 소셜 로그인 제공자 (e.g., "google")
+    private String providerId; // 소셜 로그인 제공자의 고유 ID
 
-    @Column(name = "join_at")
+    @Column(name = "join_at", updatable = false)
     @CreationTimestamp
-    private Date joinAt;
+    private LocalDateTime joinAt;
+
 }
