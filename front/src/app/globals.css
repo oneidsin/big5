@@ -1,0 +1,19 @@
+.home-container {
+  text-align: center;
+  padding: 20;
+}
+
+.test-btn {
+  padding: 8 12;
+  border: none;
+  background-color: cornflowerblue;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.test-btn:hover {
+  background-color: royalblue;
+  transition: background-color 0.3s;
+}

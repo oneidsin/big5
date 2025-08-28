@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+  margin-left: 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.menu a {
+  text-decoration: none;
+  color: black;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.menu a:hover,
+.menu a:focus {
+  background: #6495ed; /* same as login button */
+  color: #fff;
+}
+
+.btn {
+  margin-left: auto;
+  padding: 8px 12px;
+  border: none;
+  background-color: cornflowerblue;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: royalblue;
+  transition: background-color 0.3s;
+}
+
+.fadedLine {
+  border: none;
+  height: 1.5px;
+  background: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+}
