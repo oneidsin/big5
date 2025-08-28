@@ -21,71 +21,6 @@
   width: 100%;
   min-width: 0;
 }
-.login-form label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-  color: #444;
-}
-
-.form-group {
-  width: 100%;
-  margin-bottom: 18px;
-  text-align: left;
-}
-
-.login-form input[type='text'],
-.login-form input[type='password'] {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border 0.2s;
-  margin-top: 2px;
-}
-
-.login-form input:focus {
-  border: 1.5px solid #6495ed;
-  outline: none;
-}
-
-.login-btn {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 0;
-  background: #6495ed;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.login-btn:hover {
-  background: #4169e1;
-}
-
-/* 기존 .login-btn과 높이/둥글기/글꼴 크기 일치 */
-.login-btn {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 0;
-  background: #6495ed;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s, box-shadow 0.2s;
-}
-.login-btn:hover {
-  background: #4169e1;
-}
 
 /* 심플한 Google 화이트 버튼 */
 .google-btn {
@@ -105,7 +40,7 @@
   padding: 0 12px;
   box-sizing: border-box;
   transition: box-shadow 0.2s, background-color 0.2s, border-color 0.2s;
-  margin-top: 10px; /* 필요 시 간격 */
+  margin-top: 12px; /* 폼과의 간격 */
 }
 
 .google-btn__icon {
@@ -138,9 +73,4 @@
   opacity: 0.6;
   cursor: default;
   box-shadow: none;
-}
-
-/* 폼 컨테이너 내부 버튼 간격이 필요하면 선택적으로 */
-.login-form .google-btn {
-  margin-top: 12px;
 }

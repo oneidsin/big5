@@ -6,18 +6,6 @@ export default function LoginPage() {
     <div className="login-form">
       <h1>로그인</h1>
       <form>
-        <div className="form-group">
-          <label htmlFor="login-id">아이디</label>
-          <input id="login-id" type="text" name="id" autoComplete="username" required />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="login-pw">비밀번호</label>
-          <input id="login-pw" type="password" name="pw" autoComplete="current-password" required />
-        </div>
-
-        <button type="submit" className="login-btn">로그인</button>
-
         {/* Google 로그인: 심플 화이트 버튼 */}
         <button
           type="button"
