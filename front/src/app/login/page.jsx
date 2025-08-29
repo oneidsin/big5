@@ -1,6 +1,8 @@
 'use client';
 import "./login.css";
 
+const NEXT_PUBLIC_GOOGLE_LOGIN_URL = process.env.NEXT_PUBLIC_GOOGLE_LOGIN_URL;
+
 export default function LoginPage() {
   return (
     <div className="login-form">
@@ -11,7 +13,7 @@ export default function LoginPage() {
           type="button"
           className="google-btn"
           aria-label="Google로 계속하기"
-        // onClick={handleGoogleLogin}
+          onClick={() => { window.location.href = NEXT_PUBLIC_GOOGLE_LOGIN_URL; }}
         >
           <span className="google-btn__icon" aria-hidden="true">
             {/* 구글 G 아이콘 (SVG) */}
