@@ -10,58 +10,49 @@ import java.time.LocalDateTime;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private String name;
+    private Long idx;
 
     @Column(nullable = false, unique = true)
     private String email;
 
+    private String name;
     private String picture;
 
-    private String provider; // 소셜 로그인 제공자 (e.g., "google")
-    private String providerId; // 소셜 로그인 제공자의 고유 ID
+    private String provider;
 
-    @Column(name = "join_at", updatable = false)
+    @Column(name = "provider_id")
+    private String providerId;
+
+    @Column(name = "join_at")
     @CreationTimestamp
     private LocalDateTime joinAt;
 
-    // 생성자
+    // jpa 기본 생성자
     public Users() {
     }
 
-    // 생성자
-    public Users(Long id, String name, String email, String picture, String provider, String providerId, LocalDateTime joinAt) {
-        this.id = id;
-        this.name = name;
+    // 신규 생성용 생성자
+    public Users(String email, String name, String picture,
+                 String provider, String providerId) {
         this.email = email;
+        this.name = name;
         this.picture = picture;
         this.provider = provider;
         this.providerId = providerId;
-        this.joinAt = joinAt;
     }
 
-    public Users update(String name, String picture) {
+    // 유저 정보 업데이트 메서드
+    public void update(String name, String picture) {
         this.name = name;
         this.picture = picture;
-        return this;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdx() {
+        return idx;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setIdx(Long idx) {
+        this.idx = idx;
     }
 
     public String getEmail() {
@@ -70,6 +61,14 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPicture() {

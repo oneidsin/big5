@@ -1,9 +1,29 @@
 'use client';
 import "./login.css";
 
-const NEXT_PUBLIC_GOOGLE_LOGIN_URL = process.env.NEXT_PUBLIC_GOOGLE_LOGIN_URL;
+const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
 
 export default function LoginPage() {
+
+  const handleGoogleLogin = () => {
+    console.log("CLIENT_ID:", CLIENT_ID);
+    console.log("REDIRECT_URI:", REDIRECT_URI);
+    const clientId = CLIENT_ID;
+    const redirectUri = REDIRECT_URI;
+    const scope = "profile email";
+    const responseType = "code";
+
+    const googleAuthUrl =
+      `https://accounts.google.com/o/oauth2/v2/auth` +
+      `?client_id=${clientId}` +
+      `&redirect_uri=${redirectUri}` +
+      `&response_type=${responseType}` +
+      `&scope=${scope}`;
+
+    window.location.href = googleAuthUrl;
+  }
+
   return (
     <div className="login-form">
       <h1>로그인</h1>
@@ -13,7 +33,7 @@ export default function LoginPage() {
           type="button"
           className="google-btn"
           aria-label="Google로 계속하기"
-          onClick={() => { window.location.href = NEXT_PUBLIC_GOOGLE_LOGIN_URL; }}
+          onClick={handleGoogleLogin}
         >
           <span className="google-btn__icon" aria-hidden="true">
             {/* 구글 G 아이콘 (SVG) */}
