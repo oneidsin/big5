@@ -3,7 +3,7 @@ package com.big5.back.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 // 토큰 응답 DTO
-public class GoogleTokenResponse {
+public class GoogleTokenResponseDTO {
     @JsonProperty("access_token")
     private String accessToken;
 

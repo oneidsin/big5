@@ -1,7 +1,7 @@
 package com.big5.back.service;
 
-import com.big5.back.dto.GoogleTokenResponse;
-import com.big5.back.dto.GoogleUserInfoResponse;
+import com.big5.back.dto.GoogleTokenResponseDTO;
+import com.big5.back.dto.GoogleUserInfoResponseDTO;
 import com.big5.back.entity.Users;
 import com.big5.back.repository.UserRepo;
 import com.big5.back.utils.JwtProvider;
@@ -40,7 +40,7 @@ public class GoogleAuthService {
 
     public String loginWithGoogle(String code) {
         // 1. code로 토큰 요청
-        GoogleTokenResponse tokenResponse = WebClient.create()
+        GoogleTokenResponseDTO tokenResponse = WebClient.create()
                 .post()
                 .uri(tokenUri)
                 .header("Content-Type", "application/x-www-form-urlencoded")
@@ -52,16 +52,16 @@ public class GoogleAuthService {
                         .with("grant_type", "authorization_code")
                 )
                 .retrieve()
-                .bodyToMono(GoogleTokenResponse.class)
+                .bodyToMono(GoogleTokenResponseDTO.class)
                 .block();
 
         // 2. Access Token으로 유저정보 요청
-        GoogleUserInfoResponse userInfo = WebClient.create()
+        GoogleUserInfoResponseDTO userInfo = WebClient.create()
                 .get()
                 .uri(userInfoUri)
                 .headers(headers -> headers.setBearerAuth(tokenResponse.getAccessToken()))
                 .retrieve()
-                .bodyToMono(GoogleUserInfoResponse.class)
+                .bodyToMono(GoogleUserInfoResponseDTO.class)
                 .block();
 
         // 3. db 저장 및 업데이트

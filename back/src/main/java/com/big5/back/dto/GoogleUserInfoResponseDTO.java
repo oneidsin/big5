@@ -1,7 +1,7 @@
 package com.big5.back.dto;
 
 // 유저 정보 응답 DTO
-public class GoogleUserInfoResponse {
+public class GoogleUserInfoResponseDTO {
     private String sub;     // 구글 고유 ID
     private String email;
     private String name;
