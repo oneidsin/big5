@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
+
+/*
+ * 토큰 검증 필터
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);

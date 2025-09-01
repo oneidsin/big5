@@ -1,18 +1,12 @@
 "use client"
 
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import axios from "axios";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import api from '@/app/lib/axios';
 
 export default function SuccessPage() {
-  const router = useRouter();
-
   useEffect(() => {
-    console.log("APIURL:", API_URL);
     handleLogin();
-  }, [router]);
+  }, []);
 
   const handleLogin = async () => {
     const params = new URLSearchParams(window.location.search);
@@ -20,19 +14,19 @@ export default function SuccessPage() {
 
     if (code) {
       try {
-        const { data } = await axios.post(`${API_URL}/api/auth/google`, { code });
-        console.log(data);
+        const { data } = await api.post("/api/auth/google", { code });
         const token = data.token;
         sessionStorage.setItem("accessToken", token);
-        router.replace("/");
+        window.location.href = "/";
       } catch (err) {
-        console.log("구글 로그인 실패: ", err);
-        router.replace("/login");
+        alert("로그인 실패");
+        console.log(err);
+        window.location.href = "/login";
       }
     }
   };
 
   return (
-    <p>로그인 처리 중...</p>
+    <div style={{ textAlign: "center", margin: "100px", fontSize: "2rem" }}>로그인 처리 중...</div>
   );
 }

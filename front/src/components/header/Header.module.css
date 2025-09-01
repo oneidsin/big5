@@ -22,12 +22,16 @@
 
 .menu a:hover,
 .menu a:focus {
-  background: #6495ed; /* same as login button */
+  background: #6495ed;
+  /* same as login button */
   color: #fff;
 }
 
-.btn {
+.loginLink {
   margin-left: auto;
+}
+
+.btn {
   padding: 8px 12px;
   border: none;
   background-color: cornflowerblue;
@@ -48,4 +52,11 @@
   background: rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
   margin-top: 8px;
+}
+
+.userContainer {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }

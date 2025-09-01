@@ -76,3 +76,4 @@ build/
 .vscode/
 front/README.md
 back/src/main/resources/application.properties
+/.metadata/

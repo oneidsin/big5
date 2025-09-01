@@ -7,6 +7,7 @@ import com.big5.back.repository.UserRepo;
 import com.big5.back.utils.JwtProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
@@ -42,7 +43,14 @@ public class GoogleAuthService {
         GoogleTokenResponse tokenResponse = WebClient.create()
                 .post()
                 .uri(tokenUri)
-                .bodyValue(buildTokenRequest(code))
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .body(BodyInserters
+                        .fromFormData("code", code)
+                        .with("client_id", clientId)
+                        .with("client_secret", clientSecret)
+                        .with("redirect_uri", redirectUri)
+                        .with("grant_type", "authorization_code")
+                )
                 .retrieve()
                 .bodyToMono(GoogleTokenResponse.class)
                 .block();
