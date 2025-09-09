@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import Link from 'next/link';
 import styles from './Header.module.css';
 import { useEffect, useState } from 'react';
@@ -13,23 +13,15 @@ export default function Header() {
     checkLogin();
   }, []);
 
-  // 로그인 상태 확인
+  // 로그인 상태 확인: 쿠키를 통해 서버에 사용자 정보 요청
   const checkLogin = async () => {
-    const token = sessionStorage.getItem("accessToken");
-    if (!token) {
-      setUser(null);
-      setLoading(false);
-      return;
-    }
-
     try {
-      const { data } = await api.get("/api/auth/me");
-      // console.log("로그인 사용자 정보: ", data);
+      const { data } = await api.get("/api/me");
       setUser(data); // 로그인 성공 -> 유저 정보 저장
     } catch (err) {
-      // console.log("로그인 상태 확인 실패: ", err);
-      sessionStorage.removeItem("accessToken");
-      setUser(null); // 로그인 실패 -> 유저 정보 제거
+      // 쿠키가 없거나 유효하지 않으면 401 에러가 발생하고, axios 인터셉터가 처리함.
+      // 여기서는 사용자 상태를 null로 설정합니다.
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -38,7 +30,8 @@ export default function Header() {
   // 로그아웃 처리
   const handleLogout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      sessionStorage.removeItem("accessToken");
+      // 현재는 로그아웃 API가 없으므로 클라이언트 상태만 초기화합니다.
+      // TODO: 추후 백엔드에 로그아웃 API를 구현하고 호출해야 합니다.
       setUser(null);
       window.location.href = "/"; // 홈으로 이동
     }

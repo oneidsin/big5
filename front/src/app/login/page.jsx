@@ -1,42 +1,19 @@
 'use client';
 import "./login.css";
 
-const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function LoginPage() {
-
-  const handleGoogleLogin = () => {
-    console.log("CLIENT_ID:", CLIENT_ID);
-    console.log("REDIRECT_URI:", REDIRECT_URI);
-    const clientId = CLIENT_ID;
-    const redirectUri = REDIRECT_URI;
-    const scope = "profile email";
-    const responseType = "code";
-
-    const googleAuthUrl =
-      `https://accounts.google.com/o/oauth2/v2/auth` +
-      `?client_id=${clientId}` +
-      `&redirect_uri=${redirectUri}` +
-      `&response_type=${responseType}` +
-      `&scope=${scope}`;
-
-    window.location.href = googleAuthUrl;
-  }
+  const googleLoginUrl = `${API_URL}/oauth2/authorization/google`;
+  const naverLoginUrl = `${API_URL}/oauth2/authorization/naver`;
 
   return (
     <div className="login-form">
-      <h1>로그인</h1>
-      <form>
-        {/* Google 로그인: 심플 화이트 버튼 */}
-        <button
-          type="button"
-          className="google-btn"
-          aria-label="Google로 계속하기"
-          onClick={handleGoogleLogin}
-        >
+      <h1>소셜 로그인</h1>
+      <div className="social-login-container">
+        {/* Google 로그인 버튼 */}
+        <a href={googleLoginUrl} className="google-btn" aria-label="Google로 계속하기">
           <span className="google-btn__icon" aria-hidden="true">
-            {/* 구글 G 아이콘 (SVG) */}
             <svg viewBox="0 0 48 48" width="18" height="18" focusable="false" aria-hidden="true">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
               <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
@@ -46,8 +23,18 @@ export default function LoginPage() {
             </svg>
           </span>
           <span className="google-btn__label">Google로 계속하기</span>
-        </button>
-      </form>
+        </a>
+
+        {/* Naver 로그인 버튼 */}
+        <a href={naverLoginUrl} className="naver-btn" aria-label="Naver로 계속하기">
+          <span className="naver-btn__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+              <path fill="#fff" d="M9,1.5C4.86,1.5,1.5,4.86,1.5,9s3.36,7.5,7.5,7.5s7.5-3.36,7.5-7.5S13.14,1.5,9,1.5z M9.18,12.41H6.75V5.59h2.43V12.41z M11.25,12.41h-2.1V5.59h2.1L11.25,12.41z"/>
+            </svg>
+          </span>
+          <span className="naver-btn__label">Naver로 계속하기</span>
+        </a>
+      </div>
     </div>
   );
 }

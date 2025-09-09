@@ -1,32 +1,20 @@
-"use client"
+'use client';
 
 import { useEffect } from "react";
-import api from '@/app/lib/axios';
+import { useRouter } from "next/navigation";
 
 export default function SuccessPage() {
+  const router = useRouter();
+
   useEffect(() => {
-    handleLogin();
-  }, []);
-
-  const handleLogin = async () => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
-    if (code) {
-      try {
-        const { data } = await api.post("/api/auth/google", { code });
-        const token = data.token;
-        sessionStorage.setItem("accessToken", token);
-        window.location.href = "/";
-      } catch (err) {
-        alert("로그인 실패");
-        console.log(err);
-        window.location.href = "/login";
-      }
-    }
-  };
+    // 백엔드에서 쿠키를 설정하고 이 페이지로 리디렉션했으므로,
+    // 프론트엔드는 바로 홈페이지로 이동시켜주기만 하면 됩니다.
+    router.replace("/");
+  }, [router]);
 
   return (
-    <div style={{ textAlign: "center", margin: "100px", fontSize: "2rem" }}>로그인 처리 중...</div>
+    <div style={{ textAlign: "center", margin: "100px", fontSize: "2rem" }}>
+      로그인 처리 중...
+    </div>
   );
 }
