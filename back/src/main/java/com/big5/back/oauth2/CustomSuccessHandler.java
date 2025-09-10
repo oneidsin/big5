@@ -26,31 +26,31 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-
-		// OAuth2User
 		CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
-
-		String userName = customUserDetails.getUserName();
+		String name = customUserDetails.getName();
+		String email = customUserDetails.getEmail();
 
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
 		GrantedAuthority auth = iterator.next();
 		String role = auth.getAuthority();
 
-		String token = jwtUtil.createJwt(userName, role, 60 * 60 * 60L);
+		String token = jwtUtil.createJwt(name, email, role, 3 * 24 * 60 * 60 * 1000L); // 3일, 밀리초
 
-		response.addCookie(createCookie("Authorization", token));
+		// Authorization 쿠키 (HttpOnly)
+		response.addCookie(createCookie("Authorization", token, true));
+		// isLoggedIn 쿠키 (JavaScript로 접근 가능)
+		response.addCookie(createCookie("isLoggedIn", "true", false));
+
 		response.sendRedirect("http://localhost:3000/");
 	}
 
-	private Cookie createCookie(String key, String value) {
+	private Cookie createCookie(String key, String value, boolean httpOnly) {
 		Cookie cookie = new Cookie(key, value);
-		cookie.setMaxAge(60 * 60 * 60);
-		// cookie.setSecure(true);
+		cookie.setMaxAge(3 * 24 * 60 * 60); // 3일, 초 단위
 		cookie.setPath("/");
-		cookie.setHttpOnly(true);
-
+		cookie.setHttpOnly(httpOnly);
+		// cookie.setSecure(true); // HTTPS 환경에서 활성화
 		return cookie;
 	}
-
 }

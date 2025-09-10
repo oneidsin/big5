@@ -65,6 +65,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			userDTO.setUserName(userName);
 			userDTO.setName(oAuth2Response.getName());
 			userDTO.setRole("ROLE_USER");
+			userDTO.setEmail(oAuth2Response.getEmail());
 
 			// 인증 객체로 사용할 CustomOAuth2User 반환
 			return new CustomOAuth2User(userDTO);
@@ -78,9 +79,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 			// 세션에 저장할 UserDTO 생성
 			UserDTO userDTO = new UserDTO();
-			userDTO.setUserName(existData.getUserName());
+			// userDTO.setUserName(existData.getUserName());
 			userDTO.setName(oAuth2Response.getName());
 			userDTO.setRole(existData.getRole());
+			userDTO.setEmail(existData.getEmail());
 
 			// 인증 객체로 사용할 CustomOAuth2User 반환
 			return new CustomOAuth2User(userDTO);

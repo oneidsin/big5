@@ -1,12 +1,5 @@
 package com.big5.back.jwt;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-
 import java.io.IOException;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +10,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.big5.back.dto.CustomOAuth2User;
 import com.big5.back.dto.UserDTO;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 @RequiredArgsConstructor
+@Slf4j
 public class JwtFilter extends OncePerRequestFilter {
 	private final JwtUtil jwtUtil;
 
@@ -26,46 +28,44 @@ public class JwtFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		String authorization = null;
 		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
 
-			// System.out.println(cookie.getName());
-			if (cookie.getName().equals("Authorization")) {
-
-				authorization = cookie.getValue();
+		// 쿠키가 null이 아닌 경우에만 처리
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("Authorization")) {
+					authorization = cookie.getValue();
+					break;
+				}
 			}
 		}
 
-		// Authorization 헤더 검증
+		// Authorization 쿠키가 없거나 null인 경우
 		if (authorization == null) {
-
-			System.out.println("token null");
+			log.info("No Authorization cookie found");
 			filterChain.doFilter(request, response);
-
-			// 조건이 해당되면 메소드 종료 (필수)
 			return;
 		}
-
-		// 토큰
-		String token = authorization;
 
 		// 토큰 소멸 시간 검증
+		String token = authorization;
 		if (jwtUtil.isExpired(token)) {
-
-			System.out.println("token expired");
+			log.info("Token expired");
 			filterChain.doFilter(request, response);
-
-			// 조건이 해당되면 메소드 종료 (필수)
 			return;
 		}
 
-		// 토큰에서 username과 role 획득
-		String username = jwtUtil.getUsername(token);
+		// 토큰에서 userName, role, name, email 획득
+		String userName = jwtUtil.getUsername(token);
 		String role = jwtUtil.getRole(token);
+		String name = jwtUtil.getName(token);
+		String email = jwtUtil.getEmail(token);
 
-		// userDTO를 생성하여 값 set
+		// userDTO 생성
 		UserDTO userDTO = new UserDTO();
-		userDTO.setUserName(username);
+		userDTO.setUserName(userName);
 		userDTO.setRole(role);
+		userDTO.setName(name);
+		userDTO.setEmail(email);
 
 		// UserDetails에 회원 정보 객체 담기
 		CustomOAuth2User customOAuth2User = new CustomOAuth2User(userDTO);
