@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .successHandler(customSuccessHandler));
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/", "/api/gemini/**").permitAll()
                 .anyRequest().authenticated());
 
         http.sessionManagement(session -> session

@@ -11,17 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.big5.back.service.GeminiService; // 주입받는 서비스 변경
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/gemini") // URL 경로 변경
 @RequiredArgsConstructor
+@Slf4j
 public class GeminiController {
 	private final GeminiService geminiService;
 
 	@PostMapping("/explain")
-	public ResponseEntity<?> explainResult(@RequestBody Map<String, Object> body) {
-		Object scores = body.get("scores"); // {E:3.8, A:4.1,...}
-		String explanation = geminiService.getExplanation(scores.toString()); // 호출하는 서비스 변경
+	public ResponseEntity<?> explainResult(@RequestBody Map<String, Object> scores) {
+		log.info("body : {}", scores);
+		String explanation = geminiService.getExplanation(scores.toString());
 		return ResponseEntity.ok(Map.of("explanation", explanation));
 	}
 

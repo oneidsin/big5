@@ -28,7 +28,7 @@ public class GeminiService {
     private String apiUrl;
 
     public String getExplanation(String resultSummary) {
-        String prompt = "너는 성격심리학 전문가다. Big5 검사 결과를 분석하고 해설한다. 해설은 500자 이내로 간결하고 명확하게 설명해줘. 다음 Big5 결과를 해설해줘: " + resultSummary;
+        String prompt = "너는 성격심리학 전문가다. Big5 검사 결과를 분석하고 해설한다. 다음 Big5 결과를 해설해줘: " + resultSummary;
 
         GeminiRequestDTO.Part part = new GeminiRequestDTO.Part(prompt);
         GeminiRequestDTO.Content content = new GeminiRequestDTO.Content(List.of(part));

@@ -22,6 +22,7 @@ export default function Header() {
 
   const checkLogin = async () => {
     const isLoggedIn = getCookie('isLoggedIn');
+    console.log('isLoggedIn 쿠키 값:', isLoggedIn);
     if (isLoggedIn) {
       try {
         const { data } = await api.get('/api/me');
@@ -59,7 +60,7 @@ export default function Header() {
         </div>
         <ul className={styles.menu}>
           <li><Link href={'/'}>Home</Link></li>
-          <li><Link href={'/test'}>Test</Link></li>
+          <li><Link href={'/testpage'}>Test</Link></li>
           <li><Link href={'/result'}>Result</Link></li>
         </ul>
         {loading ? null : user ? (
