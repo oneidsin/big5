@@ -66,6 +66,9 @@ export default function Header() {
         {loading ? null : user ? (
           <div className={styles.userContainer}>
             <span className={styles.username}>{user.name}님 환영합니다!</span>
+            <Link href={'/profile'}>
+              <button className={styles.profileBtn}>프로필</button>
+            </Link>
             <button className={styles.btn} onClick={handleLogout}>
               로그아웃
             </button>

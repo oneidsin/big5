@@ -3,6 +3,9 @@ package com.big5.back.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -30,4 +33,8 @@ public class Users {
 
     @Column(columnDefinition = "varchar(20)")
     private String role;
+
+    @Column(name = "join_date")
+    @CreationTimestamp
+    private LocalDate joinDate;
 }

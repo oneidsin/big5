@@ -1,12 +1,8 @@
 package com.big5.back.config;
 
-import com.big5.back.jwt.JwtFilter;
-import com.big5.back.jwt.JwtUtil;
-import com.big5.back.oauth2.CustomSuccessHandler;
-import com.big5.back.service.CustomOAuth2UserService;
+import java.util.Arrays;
+import java.util.Collections;
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,10 +11,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.Arrays;
-import java.util.Collections;
+import com.big5.back.jwt.JwtFilter;
+import com.big5.back.jwt.JwtUtil;
+import com.big5.back.oauth2.CustomSuccessHandler;
+import com.big5.back.service.CustomOAuth2UserService;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity

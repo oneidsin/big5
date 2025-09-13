@@ -46,6 +46,22 @@
   transition: background-color 0.3s;
 }
 
+.profileBtn {
+  padding: 8px 12px;
+  border: 2px solid cornflowerblue;
+  background-color: transparent;
+  cursor: pointer;
+  color: cornflowerblue;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.profileBtn:hover {
+  background-color: cornflowerblue;
+  color: white;
+}
+
 .fadedLine {
   border: none;
   height: 1.5px;

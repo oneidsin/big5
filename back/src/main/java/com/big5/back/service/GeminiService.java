@@ -1,7 +1,6 @@
 package com.big5.back.service;
 
-// JsonPath 임포트 추가
-import com.jayway.jsonpath.JsonPath; 
+import com.jayway.jsonpath.JsonPath;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -33,12 +32,12 @@ public class GeminiService {
         GeminiRequestDTO.Part part = new GeminiRequestDTO.Part(prompt);
         GeminiRequestDTO.Content content = new GeminiRequestDTO.Content(List.of(part));
         GeminiRequestDTO requestDTO = new GeminiRequestDTO(List.of(content));
-        
+
         // 1. apiUrl과 apiKey를 조합하여 최종 URI를 생성
         URI uri = UriComponentsBuilder.fromUriString(apiUrl)
-        		.queryParam("key", apiKey)
-        		.build()
-        		.toUri();
+                .queryParam("key", apiKey)
+                .build()
+                .toUri();
 
         // 2. API 요청해서 응답받기
         String jsonResponse = webClient.post()
