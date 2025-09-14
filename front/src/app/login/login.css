@@ -41,6 +41,7 @@
   box-sizing: border-box;
   transition: box-shadow 0.2s, background-color 0.2s, border-color 0.2s;
   margin-top: 12px; /* 폼과의 간격 */
+  text-decoration: none; /* 링크 밑줄 제거 */
 }
 
 .google-btn__icon {

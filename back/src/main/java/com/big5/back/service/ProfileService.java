@@ -1,6 +1,7 @@
 package com.big5.back.service;
 
 import com.big5.back.dto.ProfileInfoDTO;
+import com.big5.back.dto.ResultDetailDTO;
 import com.big5.back.dto.UserResultDTO;
 import com.big5.back.entity.Users;
 import com.big5.back.repository.ResultsRepository;
@@ -14,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProfileService {
     private final UsersRepository usersRepository;
-    private final ResultService resultService;
     private final ResultsRepository resultsRepository;
 
 
@@ -26,10 +26,15 @@ public class ProfileService {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
+                .joinDate(user.getJoinDate())
                 .build();
     }
 
     public List<UserResultDTO> getTestResult(String email) {
         return resultsRepository.findUserResultsByEmail(email);
+    }
+
+    public List<ResultDetailDTO> getTestResultDetail(Long id, String email) {
+        return resultsRepository.findResultDetailByIdAndEmail(id, email);
     }
 }

@@ -61,7 +61,6 @@ export default function Header() {
         <ul className={styles.menu}>
           <li><Link href={'/'}>Home</Link></li>
           <li><Link href={'/testpage'}>Test</Link></li>
-          <li><Link href={'/result'}>Result</Link></li>
         </ul>
         {loading ? null : user ? (
           <div className={styles.userContainer}>

@@ -2,6 +2,7 @@ package com.big5.back.repository;
 
 import java.util.List;
 
+import com.big5.back.dto.ResultDetailDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,4 +25,9 @@ public interface ResultsRepository extends JpaRepository<Results, Long> {
     @Query("SELECT new com.big5.back.dto.UserResultDTO(r.id, r.agreeableness, r.conscientiousness, r.extraversion, r.neuroticism, r.openness, r.testDate, u.email) " +
             "FROM Results r JOIN r.user u WHERE u.email = :email ORDER BY r.testDate DESC")
     List<UserResultDTO> findUserResultsByEmail(@Param("email") String email);
+
+    // 사용자의 검사 결과 상세정보를 조회
+    @Query("SELECT new com.big5.back.dto.ResultDetailDTO(r.id, r.agreeableness, r.conscientiousness, r.extraversion, r.neuroticism, r.openness, r.testResult, r.testDate, u.email) " +
+            "FROM Results r JOIN r.user u WHERE r.id = :id AND u.email = :email")
+    List<ResultDetailDTO> findResultDetailByIdAndEmail(Long id, String email);
 }

@@ -28,9 +28,7 @@ export default function LoginPage() {
         {/* Naver 로그인 버튼 */}
         <a href={naverLoginUrl} className="naver-btn" aria-label="Naver로 계속하기">
           <span className="naver-btn__icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-              <path fill="#fff" d="M9,1.5C4.86,1.5,1.5,4.86,1.5,9s3.36,7.5,7.5,7.5s7.5-3.36,7.5-7.5S13.14,1.5,9,1.5z M9.18,12.41H6.75V5.59h2.43V12.41z M11.25,12.41h-2.1V5.59h2.1L11.25,12.41z"/>
-            </svg>
+            <img src="/naver.png" alt="Naver" width="18" height="18" />
           </span>
           <span className="naver-btn__label">Naver로 계속하기</span>
         </a>

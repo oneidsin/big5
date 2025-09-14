@@ -8,7 +8,7 @@ export default function SuccessPage() {
 
   useEffect(() => {
     // 백엔드에서 쿠키를 설정하고 이 페이지로 리디렉션했으므로,
-    // 프론트엔드는 바로 홈페이지로 이동시켜주기만 하면 됩니다.
+    // 프론트엔드는 바로 홈페이지로 이동시켜준다.
     router.replace("/");
   }, [router]);
 

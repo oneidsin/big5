@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -13,4 +15,5 @@ public class ProfileInfoDTO {
     private Long id;
     private String email;
     private String name;
+    private LocalDate joinDate;
 }

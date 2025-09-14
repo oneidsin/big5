@@ -1,6 +1,7 @@
 package com.big5.back.controller;
 
 import com.big5.back.dto.ProfileInfoDTO;
+import com.big5.back.dto.ResultDetailDTO;
 import com.big5.back.dto.UserResultDTO;
 import com.big5.back.service.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -34,4 +35,13 @@ public class ProfileController {
         List<UserResultDTO> results = profileService.getTestResult(email);
         return ResponseEntity.ok(results);
     }
+
+    // 검사 내역 상세보기
+    @GetMapping("/profile/test-result/detail")
+    public ResponseEntity<?> getTestResultDetail(@RequestParam Long id, @RequestParam String email) {
+        log.info("검사 내역 상세보기 : {} {}", id, email);
+        List<ResultDetailDTO> details = profileService.getTestResultDetail(id, email);
+        return ResponseEntity.ok(details);
+    }
+
 }

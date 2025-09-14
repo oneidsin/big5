@@ -85,10 +85,13 @@ export default function Profile() {
             <div className={styles.infoItem}>
               <strong>이메일:</strong> {user.email}
             </div>
+            <div className={styles.infoItem}>
+              <strong>가입일:</strong> {user.joinDate}
+            </div>
           </div>
         )}
 
-        {/* 테스트 결과 섹션 */}
+        {/* 검사 결과 리스트 */}
         {testResults && testResults.length > 0 && (
           <div className={styles.testResultsSection}>
             <h3>나의 검사 내역</h3>
@@ -97,19 +100,19 @@ export default function Profile() {
                 <div
                   key={result.id || index}
                   className={styles.testResultItem}
-                  onClick={() => window.location.href = `/result?testId=${result.id}`}
+                  onClick={() => window.location.href = `/profile/test-result?testId=${result.id}&email=${user.email}`}
                 >
                   <div className={styles.testResultHeader}>
                     <span className={styles.testDate}>
                       {new Date(result.date).toLocaleDateString('ko-KR')} 검사
                     </span>
-                    <span className={styles.testId}>ID: {result.id}</span>
+                    {/* <span className={styles.testId}>ID: {result.id}</span> */}
                   </div>
-                  <div className={styles.testResultSummary}>
+                  {/* <div className={styles.testResultSummary}>
                     <span className={styles.totalScore}>
                       총점: {(result.a + result.c + result.e + result.n + result.o)}점
                     </span>
-                  </div>
+                  </div> */}
                   <div className={styles.clickHint}>
                     클릭하여 상세 결과 보기 →
                   </div>

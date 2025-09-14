@@ -1,0 +1,55 @@
+.result-wrapper {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 24px;
+  background: #ffffff; /* 깔끔한 흰색 카드 */
+  color: #0b1020;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.06);
+}
+
+.result-main {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.chart-area {
+  padding: 12px;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.recharts-tooltip-wrapper {
+  z-index: 9999;
+}
+
+.analysis {
+  margin-top: 20px;
+  padding: 16px;
+  background: #f8fafc; /* 아주 연한 회색 */
+  border-radius: 8px;
+  border: 1px solid #eef2f7;
+}
+
+.analysis h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.125rem;
+}
+
+.analysis p {
+  line-height: 1.6;
+  color: #111827;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .result-wrapper {
+    margin: 12px;
+    padding: 12px;
+  }
+  .result-main {
+    font-size: 1.125rem;
+  }
+}

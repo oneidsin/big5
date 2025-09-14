@@ -79,3 +79,31 @@
   font-size: 16px;
   color: #777; /* 푸터의 텍스트 색상과 유사 */
 }
+
+/* 로딩 버튼 스타일 */
+.btn.loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #87CEEB; /* 약간 더 밝은 색상으로 로딩 상태 표시 */
+  cursor: not-allowed;
+}
+
+.btn.loading:hover {
+  background-color: #87CEEB; /* 호버 효과 비활성화 */
+}
+
+/* 스피너 애니메이션 */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

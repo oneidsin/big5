@@ -1,17 +1,34 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import questions from '../data/ipip50';
 import styles from './test.module.css';
 import api from '../lib/axios';
 
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+};
+
 export default function Big5Test() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [answers, setAnswers] = useState({});
-  const [isFinished, setIsFinished] = useState(false);
-  const [results, setResults] = useState(null);
+  const [isLogin, setIsLogin] = useState(false); // 로그인 상태 관리
+  const [showWarning, setShowWarning] = useState(false); // 경고 메시지 표시 상태
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 관리
+
+  useEffect(() => {
+    const loginStatus = getCookie('isLoggedIn');
+    setIsLogin(!!loginStatus);
+
+    // 로그인하지 않은 경우 경고 표시
+    if (!loginStatus) {
+      setShowWarning(true);
+    }
+  }, []);
 
   const questionsPerPage = 10;
   const totalPages = Math.ceil(questions.length / questionsPerPage);
@@ -76,7 +93,7 @@ export default function Big5Test() {
   const submitToBackend = async (scores) => {
     try {
       const { data } = await api.post('/api/gemini/explain', scores);
-      console.log('빅5 결과 :', data);
+      // console.log('빅5 결과 :', data);
       return data;
     } catch (error) {
       console.error('빅5 결과 전송 실패:', error);
@@ -90,8 +107,10 @@ export default function Big5Test() {
       return;
     }
 
+    setIsLoading(true); // 로딩 시작
+
     const finalScores = calculateScores();
-    console.log('최종 점수:', finalScores);
+    // console.log('최종 점수:', finalScores);
 
     try {
       // 백엔드로 점수 전송
@@ -109,40 +128,24 @@ export default function Big5Test() {
       router.push('/result');
     } catch (error) {
       alert('결과 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+      setIsLoading(false); // 오류 발생시 로딩 종료
     }
   };
-
-  if (isFinished) {
-    return (
-      <main className={styles.main}>
-        <div className={styles.inner}>
-          <h1 className={styles.title}>검사 결과</h1>
-          <div className={styles.results}>
-            <p>당신의 빅5 성격 요인 점수는 다음과 같습니다.</p>
-            <ul>
-              <li>외향성 (E): {results.scores.E}점</li>
-              <li>우호성 (A): {results.scores.A}점</li>
-              <li>성실성 (C): {results.scores.C}점</li>
-              <li>신경성 (N): {results.scores.N}점</li>
-              <li>개방성 (O): {results.scores.O}점</li>
-            </ul>
-            {/* 백엔드에서 받은 분석 결과 표시 */}
-            {results.analysis && (
-              <div className={styles.analysis}>
-                <h2>성격 분석</h2>
-                <p>{results.analysis}</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </main>
-    )
-  }
 
   return (
     <main className={styles.main}>
       <div className={styles.inner}>
         <h1 className={styles.title}>빅5 성격 검사</h1>
+
+        {/* 비로그인 사용자 경고 메시지 */}
+        {showWarning && (
+          <div>
+            <p style={{ backgroundColor: '#fef3cd', padding: '12px', borderRadius: '8px' }}>
+              로그인하지 않은 상태에서는 검사 결과가 저장되지 않습니다. 검사 결과를 저장하고 싶다면 로그인 해주세요.
+            </p>
+          </div>
+        )}
+
         <div className={styles.questions}>
           {currentQuestions.map((question) => (
             <div key={question.id} className={styles.question}>
@@ -158,7 +161,7 @@ export default function Big5Test() {
                       onChange={() => handleAnswerChange(question.id, val)}
                     />
                     <span>
-                      {val === 1 && '전혀 그렇지 않다'}
+                      {val === 1 && '매우 그렇지 않다'}
                       {val === 2 && '그렇지 않다'}
                       {val === 3 && '보통이다'}
                       {val === 4 && '그렇다'}
@@ -183,8 +186,19 @@ export default function Big5Test() {
             페이지 {currentPage} / {totalPages}
           </span>
           {currentPage === totalPages ? (
-            <button onClick={handleSubmit} className={styles.btn}>
-              결과 보기
+            <button
+              onClick={handleSubmit}
+              className={`${styles.btn} ${isLoading ? styles.loading : ''}`}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <span className={styles.spinner}></span>
+                  결과 분석 중...
+                </>
+              ) : (
+                '결과 보기'
+              )}
             </button>
           ) : (
             <button
