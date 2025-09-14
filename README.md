@@ -7,9 +7,9 @@
 - 프로필
 
 ## 개발 환경
-Java 21
-Spring Boot 3.4.8
-JPA
-Next.js
-Axios
-MariaDB
+- Java 21
+- Spring Boot 3.4.8
+- JPA
+- Next.js
+- Axios
+- MariaDB
